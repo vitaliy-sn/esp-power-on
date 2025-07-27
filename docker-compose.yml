@@ -1,0 +1,12 @@
+services:
+  esp-power-on:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: esp-power-on
+    environment:
+      - APP_PORT=8001
+      - ESP_ADDR=10.4.1.146
+      - DEVICE_NAME=MSI
+    network_mode: host
+    restart: unless-stopped

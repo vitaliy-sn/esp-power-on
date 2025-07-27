@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: esp-power-on
+  namespace: {{ .Release.Namespace }}
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: esp-power-on
+  template:
+    metadata:
+      labels:
+        app: esp-power-on
+    spec:
+      terminationGracePeriodSeconds: 5
+      containers:
+        - name: esp-power-on
+          image: {{ .Values.image }}
+          env:
+            - name: ESP_ADDRESS
+              value: {{ .Values.espAddress | quote }}
+            - name: DEVICE_NAME
+              value: {{ .Values.deviceName | quote }}
+          ports:
+            - containerPort: 8080
+              name: http
