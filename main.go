@@ -174,6 +174,7 @@ func main() {
 
 	port := viper.GetString("APP_PORT")
 	espAddr := viper.GetString("ESP_ADDRESS")
+	gpioNum := viper.GetString("ESP_GPIO_NUM")
 	deviceName := viper.GetString("DEVICE_NAME")
 	if deviceName != "" {
 		deviceName = " (" + deviceName + ")"
@@ -183,11 +184,16 @@ func main() {
 		slog.Error("missing required environment variable", "name", "ESP_ADDRESS")
 		os.Exit(1)
 	}
+	if gpioNum == "" {
+		slog.Error("missing required environment variable", "name", "ESP_GPIO_NUM")
+		os.Exit(1)
+	}
 
 	// Print used environment variables and their values
 	slog.Info("environment variables",
 		"APP_PORT", port,
 		"ESP_ADDRESS", espAddr,
+		"ESP_GPIO_NUM", gpioNum,
 		"DEVICE_NAME", deviceName,
 	)
 
@@ -207,7 +213,7 @@ func main() {
 
 	mux.HandleFunc("/poweron", func(w http.ResponseWriter, r *http.Request) {
 		client := &http.Client{Timeout: 5 * time.Second}
-		url := fmt.Sprintf("http://%s/control?cmd=Pulse,16,1,500", espAddr)
+		url := fmt.Sprintf("http://%s/control?cmd=Pulse,%s,1,500", espAddr, gpioNum)
 		resp, err := client.Get(url)
 		if err != nil {
 			slog.Error("poweron request error", "err", err)

@@ -24,6 +24,8 @@ spec:
               value: {{ .Values.espAddress | quote }}
             - name: DEVICE_NAME
               value: {{ .Values.deviceName | quote }}
+            - name: ESP_GPIO_NUM
+              value: {{ .Values.espGpioNum | quote }}
           ports:
             - containerPort: 8080
               name: http

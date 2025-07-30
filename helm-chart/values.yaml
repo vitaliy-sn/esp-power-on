@@ -1,5 +1,6 @@
 tlsSecretName: ingress-tls-k8s
 host: esp-power-on.k8s.example.com
-image: ixdx/esp-power-on:2025_07_17
+image: ixdx/esp-power-on:2025_07_30
 espAddress: 10.4.1.146
+espGpioNum: 16
 deviceName: MSI
