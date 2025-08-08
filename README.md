@@ -1,5 +1,7 @@
 # ESP Power On
 
+![Screenshot](screenshot.png)
+
 A web application for remotely powering on devices via ESP-based microcontrollers (such as ESP8266, ESP32) running ESP Easy firmware or any compatible firmware supporting HTTP GPIO control commands. The project is designed for remote powering on a PC or other equipment using a web interface.
 
 ---
